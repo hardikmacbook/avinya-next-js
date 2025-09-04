@@ -237,17 +237,6 @@ const BeautifulSlider = () => {
     };
   }, []);
 
-  // Loading UI
-  if (isLoading) {
-    return (
-      <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] min-h-[400px] max-h-[900px] bg-gray-100 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
-          <p className="text-gray-600 text-sm">Loading slider content...</p>
-        </div>
-      </div>
-    );
-  }
 
   // Error UI or empty data fallback
   if (error || mediaItems.length === 0) {
@@ -474,29 +463,6 @@ const BeautifulSlider = () => {
 
             {/* Right Controls */}
             <div className="flex items-center gap-2 md:gap-3">
-              {/* Pagination Counter */}
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full">
-                <span className="text-white text-xs md:text-sm font-mono">
-                  {String(currentSlide + 1).padStart(2, "0")} / {String(mediaItems.length).padStart(2, "0")}
-                </span>
-                <div className="hidden md:flex items-center gap-1">
-                  <div className="w-1 h-1 bg-white/60 rounded-full" />
-                  <span className="text-white/80 text-xs">
-                    {isVideo ? "VIDEO" : "IMAGE"}
-                  </span>
-                </div>
-              </div>
-
-              {/* Reset Button */}
-              <button
-                onClick={resetSlider}
-                className="p-2 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-[#8b2727]/50 transition-all duration-200"
-                title="Reset to first slide"
-                aria-label="Reset to first slide"
-              >
-                <RotateCcw className="w-3 h-3 md:w-4 md:h-4" />
-              </button>
-
               {/* Auto-play Toggle */}
               <button
                 onClick={toggleAutoPlay}
