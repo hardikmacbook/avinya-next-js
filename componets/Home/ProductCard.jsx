@@ -6,6 +6,39 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Custom arrow components for slick slider
+const NextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-[#8b2727] text-white rounded-full p-2 shadow-md z-10 hover:bg-[#a83333] transition-colors"
+      aria-label="Next"
+      style={{ width: 36, height: 36 }}
+    >
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+  );
+};
+
+const PrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-[#8b2727] text-white rounded-full p-2 shadow-md z-10 hover:bg-[#a83333] transition-colors"
+      aria-label="Previous"
+      style={{ width: 36, height: 36 }}
+    >
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+  );
+};
+
 const ProductCard = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,13 +78,14 @@ const ProductCard = () => {
     );
   }
 
-  // Slider settings for responsiveness and appearance
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1200,
@@ -66,15 +100,13 @@ const ProductCard = () => {
         settings: { slidesToShow: 1 }
       }
     ],
-    arrows: true,
-    autoplay: false,
     swipeToSlide: true,
-    adaptiveHeight: true,
+    adaptiveHeight: false,
   };
 
   return (
     <div className="outer pt-10 bg-gray-50 min-h-screen">
-      <div className="container mx-auto max-w-[1200px] w-full px-4 py-6">
+      <div className="container mx-auto max-w-[1200px] w-full px-4 py-6 relative">
         <div className="product-inner">
           <div className="product-inner-content">
             <Title
@@ -82,15 +114,17 @@ const ProductCard = () => {
               subtitle="Trusted by industries across Vapi and Silvassa for quality electrical products and exceptional service"
             />
             <Slider {...settings} className="product-carousel">
-              {data.slice(0, 20).map((product) => (
+              {data.slice(0, 8).map((product) => (
                 <div key={product.id} className="p-3">
-                  <div className="bg-white rounded-2xl shadow-lg border border-[#d2af6f]/30 hover:border-[#8b2727] transition-colors duration-200 p-6 h-full flex flex-col">
+                  <div className="bg-white rounded-2xl shadow-lg border border-[#d2af6f]/30 hover:border-[#8b2727] transition-colors duration-200 p-6 flex flex-col"
+                       style={{ width: '100%', height: '400px' }}>
                     <Link
                       href={`/shop/${createSlug(product.title)}`}
                       className="w-full h-48 mb-4 bg-gradient-to-br from-[#f8f3e9] to-[#f0e6d2] rounded-xl flex items-center justify-center overflow-hidden"
+                      style={{ height: '192px' }}
                     >
                       <img
-                        className="max-w-full max-h-full object-contain"
+                        className="w-full h-full object-contain"
                         src={product.images[0]}
                         alt={product.title}
                       />
@@ -107,14 +141,11 @@ const ProductCard = () => {
                         </div>
                       </div>
 
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                        {product.description.length > 80 ? product.description.slice(0, 80) + "..." : product.description}
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2" style={{ minHeight: '3rem' }}>
+                        {product.description.length > 80 ? product.description.slice(0, 50) + "..." : product.description}
                       </p>
 
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold text-[#8b2727]">
-                          ₹{product.price}
-                        </span>
+                      <div className="flex items-center justify-between mt-auto">
                         <span className="text-xs text-[#8b2727] bg-[#f8f3e9] px-3 py-1 rounded-full font-medium">
                           {product.category}
                         </span>
