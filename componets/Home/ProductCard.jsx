@@ -6,17 +6,17 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Custom arrow components for slick slider
+// Custom arrow components with no background and stylish left/right arrows
 const NextArrow = (props) => {
   const { onClick } = props;
   return (
     <button
       onClick={onClick}
-      className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-[#8b2727] text-white rounded-full p-2 shadow-md z-10 hover:bg-[#a83333] transition-colors"
+      className="absolute top-1/2 right-0 transform -translate-y-1/2 text-[#8b2727] hover:text-[#a83333] z-10 p-2 focus:outline-none"
       aria-label="Next"
-      style={{ width: 36, height: 36 }}
+      style={{ width: 32, height: 32 }}
     >
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 18l6-6-6-6" />
       </svg>
     </button>
@@ -28,11 +28,11 @@ const PrevArrow = (props) => {
   return (
     <button
       onClick={onClick}
-      className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-[#8b2727] text-white rounded-full p-2 shadow-md z-10 hover:bg-[#a83333] transition-colors"
+      className="absolute top-1/2 left-0 transform -translate-y-1/2 text-[#8b2727] hover:text-[#a83333] z-10 p-2 focus:outline-none"
       aria-label="Previous"
-      style={{ width: 36, height: 36 }}
+      style={{ width: 32, height: 32 }}
     >
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15 18l-6-6 6-6" />
       </svg>
     </button>
@@ -142,14 +142,15 @@ const ProductCard = () => {
                       </div>
 
                       <p className="text-sm text-gray-600 mb-3 line-clamp-2" style={{ minHeight: '3rem' }}>
-                        {product.description.length > 80 ? product.description.slice(0, 50) + "..." : product.description}
+                        {product.description.length > 80 ? product.description.slice(0, 80) + "..." : product.description}
                       </p>
 
-                      <div className="flex items-center justify-between mt-auto">
-                        <span className="text-xs text-[#8b2727] bg-[#f8f3e9] px-3 py-1 rounded-full font-medium">
-                          {product.category}
-                        </span>
-                      </div>
+                      <Link 
+                        href={`/shop/${createSlug(product.title)}`}
+                        className="text-[#8b2727] hover:text-[#a83333] font-medium text-sm self-start"
+                      >
+                        Read More &rarr;
+                      </Link>
                     </div>
                   </div>
                 </div>
